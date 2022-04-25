@@ -52,7 +52,7 @@ public class Main {
         }
 
         //Username entry
-        System.out.println("Greetings matey. Enter ye' username:");
+        System.out.println("Ahoy matey. Enter ye' username:");
         String username = input.next();
 
         //Main Menu Loop
@@ -105,8 +105,12 @@ public class Main {
 
     //Prints out main menu
     public static void menu() {
-        System.out.println("\t\t\t\tWelcome to Ye'Bay!\t\t\t\t\n\nPlease enter one of the follow options to continue:\n\nBrowse for Treasure\t\t'1'\nSell Ye' Treasure\t\t'2'\n" +
-                "Buy some Booty\t\t\t'3'\nBrowse Past Plunders\t'4'\nDelete an Item\t\t\t'5'\nExit Ye'Bay\t\t\t\t'6'\n");
+        System.out.printf("%-20s%20s%n","Browse for Treasure","'1'");
+        System.out.printf("%-20s%20s%n","Sell Ye' Wares","'2'");
+        System.out.printf("%-20s%20s%n","Empty ye' coffers","'3'");
+        System.out.printf("%-20s%20s%n","Browse Past Plunders","'4'");
+        System.out.printf("%-20s%20s%n","Delete an Item","'5'");
+        System.out.printf("%-20s%20s%n","Set Sail  from Ye'Bay","'6'");
     }
 
     //Prints out the current available inventory
@@ -123,7 +127,7 @@ public class Main {
     //Prints out sold inventory
     public static void displaySoldInventory(ArrayList<Object> soldInventoryList) {
         System.out.printf("%90s%n%n", "= Inventory =");
-        System.out.printf("%-20s%-80s%10s%10s%25s%35s%n%n", "Product Name", "Description", "Price", "Serial ID", "Buyer", "Date Posted");
+        System.out.printf("%-20s%-80s%10s%12s%25s%35s%n%n", "Product Name", "Description", "Price", "Serial ID", "Buyer", "Date Posted");
         for (Object i : soldInventoryList) {
             Inventory inventory = (Inventory) i;
             inventory.showSoldInventoryDetails();
