@@ -1,6 +1,5 @@
 package com.finalProject;
 
-import java.io.PrintStream;
 import java.util.Date;
 
 public class Inventory

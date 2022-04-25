@@ -10,8 +10,15 @@ Includes:
 
 package com.finalProject;
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 
 public class Main {
 
@@ -22,7 +29,7 @@ public class Main {
         ArrayList<Object> soldInventoryList = new ArrayList<>();
 
         //Reads text lines from a .txt file and then instantiates an ArrayList of
-        // Inventory objects items in the file
+        //Inventory objects items in the file
         try {
             File file = new File("C:\\Users\\Gavyn\\IdeaProjects\\FinalProject\\src\\com\\finalProject\\items.txt");
             Scanner fileIn = new Scanner(file);
@@ -41,7 +48,8 @@ public class Main {
                 }
             }
             fileIn.close();
-        }catch(NoSuchElementException e){}
+        } catch (NoSuchElementException e) {System.out.println("Inventory Loaded\n");
+        }
 
         //Username entry
         System.out.println("Greetings matey. Enter ye' username:");
@@ -50,50 +58,50 @@ public class Main {
         //Main Menu Loop
         boolean cnt = true;
         menu();
-            do {
-                int userIn = 0;
-                boolean cnt1 = true;
+        do {
+            int userIn = 0;
+            boolean cnt1 = true;
 
-                while(cnt1) {
-                    try {
-                        Scanner in = new Scanner(System.in);
-                        userIn = in.nextInt();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Sorry matey, ye' need to enter a number.\n");
-                    } finally {
-                        cnt1 = false;
-                    }
+            while (cnt1) {
+                try {
+                    Scanner in = new Scanner(System.in);
+                    userIn = in.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Sorry matey, ye' need to enter a number.\n");
+                } finally {
+                    cnt1 = false;
                 }
+            }
 
-                switch (userIn) {
-                    case 1:
-                        displayInventory(inventoryList);
-                        break;
-                    case 2:
-                        addInventory(inventoryList, username);
-                        break;
-                    case 3:
-                        sellInventory(inventoryList, soldInventoryList, username);
-                        break;
-                    case 4:
-                        displaySoldInventory(soldInventoryList);
-                        break;
-                    case 5:
-                        deleteInventory(inventoryList, username);
-                        break;
-                    case 6:
-                        System.out.println("Exiting Ye' Bay, see ya later matey.");
-                        cnt = false;
-                        break;
-                    default:
-                        menu();
-                        break;
-                }
+            switch (userIn) {
+                case 1:
+                    displayInventory(inventoryList);
+                    break;
+                case 2:
+                    addInventory(inventoryList, username);
+                    break;
+                case 3:
+                    sellInventory(inventoryList, soldInventoryList, username);
+                    break;
+                case 4:
+                    displaySoldInventory(soldInventoryList);
+                    break;
+                case 5:
+                    deleteInventory(inventoryList, username);
+                    break;
+                case 6:
+                    System.out.println("Exiting Ye' Bay, see ya later matey.");
+                    cnt = false;
+                    break;
+                default:
+                    menu();
+                    break;
+            }
 
-            }while(cnt);
+        } while (cnt);
     }
 
-/*Menu Methods*/
+    /*Menu Methods*/
 
     //Prints out main menu
     public static void menu() {
@@ -103,10 +111,9 @@ public class Main {
 
     //Prints out the current available inventory
     public static void displayInventory(ArrayList<Object> inventoryList) {
-        System.out.printf("%90s%n%n","= Inventory =");
-        System.out.printf("%-20s%-80s%10s%11s%25s%35s%n%n","Product Name","Description","Price","Serial ID","Seller","Date Posted");
-        for (Object i : inventoryList)
-        {
+        System.out.printf("%90s%n%n", "= Inventory =");
+        System.out.printf("%-20s%-80s%10s%11s%25s%35s%n%n", "Product Name", "Description", "Price", "Serial ID", "Seller", "Date Posted");
+        for (Object i : inventoryList) {
             Inventory inventory = (Inventory) i;
             inventory.showInventoryDetails();
         }
@@ -115,10 +122,9 @@ public class Main {
 
     //Prints out sold inventory
     public static void displaySoldInventory(ArrayList<Object> soldInventoryList) {
-        System.out.printf("%90s%n%n","= Inventory =");
-        System.out.printf("%-20s%-80s%10s%10s%25s%35s%n%n","Product Name","Description","Price","Serial ID","Buyer","Date Posted");
-        for (Object i : soldInventoryList)
-        {
+        System.out.printf("%90s%n%n", "= Inventory =");
+        System.out.printf("%-20s%-80s%10s%10s%25s%35s%n%n", "Product Name", "Description", "Price", "Serial ID", "Buyer", "Date Posted");
+        for (Object i : soldInventoryList) {
             Inventory inventory = (Inventory) i;
             inventory.showSoldInventoryDetails();
         }
@@ -144,28 +150,27 @@ public class Main {
 
             System.out.println("Congrats matey. Ye' treasure has been posted!\n");
             System.out.println("Enter '0' to return to the menu.\n");
-        }catch(InputMismatchException e){System.out.println("Sorry matey. Make sure your inputs are correct.\n"); menu();}
+        } catch (InputMismatchException e) {
+            System.out.println("Sorry matey. Make sure your inputs are correct.\n");
+            menu();
+        }
     }
 
     //Maps the list to a hashmap so the serial ID of the inventory items can be used to search
     //Returns the object with the serialID matching the ID the user enters
     public static Inventory searchInventory(ArrayList<Object> inventoryList, int userSerialID) {
         Map<Integer, Inventory> inventoryMap = new HashMap<>();
-        for (Object i : inventoryList)
-        {
+        for (Object i : inventoryList) {
             Inventory inventory = (Inventory) i;
             int serialID = inventory.getSerialID();
             inventoryMap.put(serialID, inventory);
         }
 
         Inventory inventory = inventoryMap.get(userSerialID);
-        if (inventory == null)
-        {
+        if (inventory == null) {
             System.out.println("Sorry Matey... it seems X didn't mark the spot.\n");
             return null;
-        }
-        else
-        {
+        } else {
             System.out.println("Grab your grog, ye treasure has been found!\n");
             return inventory;
         }
@@ -189,12 +194,10 @@ public class Main {
         if (!username.equals(Inventory.getSeller())) {
             System.out.println("It looks like you don't own this item.\n\nPlease enter '0' to go back to the menu.\n");
             return;
-        }
-        else if (inventory == null) {
+        } else if (inventory == null) {
             System.out.println("It looks like we couldn't find your item.\n\nPlease enter '0' to go back to the menu.\n");
-        }
-        else {
-            System.out.printf("%-20s%-80s%10s%11s%25s%35s%n%n","Product Name","Description","Price","Serial ID","Seller","Date Posted");
+        } else {
+            System.out.printf("%-20s%-80s%10s%11s%25s%35s%n%n", "Product Name", "Description", "Price", "Serial ID", "Seller", "Date Posted");
             inventory.showInventoryDetails();
             System.out.println("\nAre ye' sure ye' would like to delete this item? <Y/N>\n");
             String cnd = input.next();
@@ -224,18 +227,15 @@ public class Main {
         if (inventory == null) {
             System.out.println("It seems we couldn't find your item. Please enter '0' to go back to the menu\n");
             return;
-        }
-        else {
-            System.out.printf("%-20s%-80s%10s%11s%25s%35s%n%n","Product Name","Description","Price","Serial ID","Seller","Date Posted");
+        } else {
+            System.out.printf("%-20s%-80s%10s%11s%25s%35s%n%n", "Product Name", "Description", "Price", "Serial ID", "Seller", "Date Posted");
             inventory.showInventoryDetails();
             System.out.println("\nWould ye' like to buy this item? <Y,N>\n");
             String cnd = input.next();
             if (!cnd.equalsIgnoreCase("Y")) {
                 System.out.println("I respect ye' decision. Please enter '0' to go back to the menu.\n");
                 return;
-            }
-            else
-            {
+            } else {
                 inventory.setDateBought();
                 inventory.setBuyer(username);
                 inventoryList.remove(inventory);
