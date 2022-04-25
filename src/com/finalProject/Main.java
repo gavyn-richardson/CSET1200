@@ -31,7 +31,7 @@ public class Main {
         //Reads text lines from a .txt file and then instantiates an ArrayList of
         //Inventory objects items in the file
         try {
-            File file = new File("C:\\Users\\Gavyn\\IdeaProjects\\FinalProject\\src\\com\\finalProject\\items.txt");
+            File file = new File("src\\com\\finalProject\\items.txt");
             Scanner fileIn = new Scanner(file);
             while (fileIn.hasNextLine()) {
                 boolean cnt2 = true;
