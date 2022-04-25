@@ -1,0 +1,36 @@
+Banana
+Yellow stick that tastes good
+0.99
+Cheese
+Made of cow juice
+2.99
+Orange
+Cures scurvy
+0.99
+Cannonball
+Steel Sphere
+49.99
+Cannon
+It's literally just a cannon
+499.99
+Anvil
+Craft weapons or make somebody a slinky
+99.99
+Hammer
+Used with an anvil to make slinkies
+22.99
+Skull
+"Aye, where did Frank go?"
+2.99
+Pile O' Bones
+Frank's legs and arm
+1.99
+Plank
+Made for walkin'
+0.99
+Telescope
+Can be used to see distant lands or attach to your weapon to land sick 360s
+10.99
+
+
+
